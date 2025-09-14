@@ -90,28 +90,63 @@
         <div class="row d-flex justify-content-center mt-5">
             <div class="col-6 d-flex justify-content-center">
                 <div class="border rounded-4 border-2 w-75" style="border-radius: 50">
-                    <form>
+                    <form id="myForm">
                         <div class="mb-1 m-3">
                             <p class="mb-1">Имя</p>
-                            <input type="text" class="form-control" id="exampleInputPassword1">
+                            <input type="text" class="form-control" id="name" required>
                         </div>
                         <div class="mb-1 m-3">
                             <p class="mb-1">Почта</p>
                             <div class="input-group mb-2">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" id="exampleInputEmail1" class="form-control"
+                                <input type="email" id="email" class="form-control"
                                        placeholder="name@mail.com"
                                        aria-label="Username"
-                                       aria-describedby="basic-addon1">
+                                       aria-describedby="basic-addon1" required>
                             </div>
                         </div>
                         <div class="form-floating mb-2 m-3">
                             <p class="mb-1">Сообщение</p>
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                                      style="height: 100px"></textarea>
+                            <textarea class="form-control" placeholder="Leave a comment here" id="message"
+                                      style="height: 100px" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mx-3 mb-3 mt-2">Отправить</button>
                     </form>
+
+                    <script>
+                        document.getElementById('myForm').addEventListener('submit', function(event) {
+                            event.preventDefault(); // Предотвращаем стандартное поведение формы
+
+                            // Получаем значения из полей формы
+                            const name = document.getElementById('name').value;
+                            const email = document.getElementById('email').value;
+                            const message = document.getElementById('message').value;
+
+                            // Создаем объект с данными для отправки
+                            const data = {
+                                name: name,
+                                email: email,
+                                message: message
+                            };
+
+                            // Отправляем POST-запрос
+                            fetch('http://localhost:8080/submit', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json' // Указываем тип контента
+                                },
+                                body: JSON.stringify(data) // Преобразуем объект в JSON
+                            })
+                            .then(response => response.json()) // Обрабатываем ответ
+                            .then(data => {
+                                console.log('Успех:', data); // Выводим ответ в консоль
+                            })
+                            .catch((error) => {
+                                console.error('Ошибка:', error); // Обрабатываем ошибки
+                            });
+                        });
+                    </script>
+
                 </div>
             </div>
             <div class="col-6 d-flex justify-content-center">

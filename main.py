@@ -14,7 +14,7 @@ class MyServer(BaseHTTPRequestHandler):
 
         with open("contacts.html", encoding='utf-8') as file:
             data = file.read()
-            # print(data)
+            print(data)
 
         self.wfile.write(bytes(data, 'utf-8'))
 

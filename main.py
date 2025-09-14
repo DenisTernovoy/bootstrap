@@ -8,6 +8,8 @@ class MyServer(BaseHTTPRequestHandler):
     """Класс для обработки входящих запросов"""
 
     def do_GET(self):
+        """Метод для обработки GET-запросов"""
+
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
@@ -19,6 +21,8 @@ class MyServer(BaseHTTPRequestHandler):
         self.wfile.write(bytes(data, 'utf-8'))
 
     def do_POST(self):
+        """Метод для обработки POST-запросов"""
+
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
